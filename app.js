@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const ejs = require('ejs');
@@ -11,14 +12,16 @@ app.use(express.static('public'));
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
 
-mongoose.connect('mongodb://localhost:27017/userDB', {useNewUrlParser: true, useUnifiedTopology: true});
+
+const password = process.env.PASSWORD;
+mongoose.connect(`mongodb+srv://nishujangra27:${password}@cluster0.bwi1a0u.mongodb.net/?retryWrites=true&w=majority`)
 
 const userSchema = new mongoose.Schema({
     email: String,
     password: String
 });
 
-const secret = "Thisismylittledirtydarksecret";
+const secret = process.env.SECRET;
 userSchema.plugin(encrypt, {secret: secret, encryptedFields: ['password']});
 
 const User = mongoose.model('User', userSchema);
