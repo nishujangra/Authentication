@@ -14,7 +14,7 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
 
 
-mongoose.connect('mongodb://localhost:27017/userDB', {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect(`mongodb+srv://${process.env.ID}:${process.env.PASSWORD}@cluster0.bwi1a0u.mongodb.net/?retryWrites=true&w=majority`)
 
 const userSchema = new mongoose.Schema({
     email: String,
